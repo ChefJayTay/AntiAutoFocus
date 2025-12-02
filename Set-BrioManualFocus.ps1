@@ -3,7 +3,7 @@
 
 $ErrorActionPreference = "SilentlyContinue"
 
-$brios = Get-PnpDevice -Class Camera | Where-Object { $_.FriendlyName -like "*BRIO*" }
+$brios = @(Get-PnpDevice -Class Camera -ErrorAction SilentlyContinue; Get-PnpDevice -Class Image -ErrorAction SilentlyContinue) | Where-Object { $_.FriendlyName -like "*BRIO*" }
 
 if ($brios) {
     foreach ($brio in $brios) {

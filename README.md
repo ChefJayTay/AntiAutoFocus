@@ -7,12 +7,12 @@ This project contains PowerShell scripts to disable autofocus on Logitech Brio c
 ## Prerequisites
 
 -   Windows PowerShell 5.1 or later.
--   Administrator privileges are required to run the setup scripts.
+-   **Administrator privileges** are required to run the setup scripts (to modify registry and scheduled tasks).
 -   Logitech Brio cameras connected.
 
 ## Files
 
--   `Set-BrioRegistrySettings.ps1`: Scans for connected Brio cameras and sets the `FocusMode` (Manual) and `Focus` (Distance) registry keys.
+-   `Set-BrioRegistrySettings.ps1`: Scans for connected Brio cameras (checking both `Camera` and `Image` device classes) and sets the `FocusMode` (Manual) and `Focus` (Distance) registry keys.
 -   `Set-BrioManualFocus.ps1`: The script designed to run at startup. It uses WMI to enforce the focus settings.
 -   `Install-BrioTask.ps1`: Registers a Windows Scheduled Task to run `Set-BrioManualFocus.ps1` automatically at logon.
 

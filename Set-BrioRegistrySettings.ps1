@@ -4,8 +4,13 @@
 
 $ErrorActionPreference = "Stop"
 
+if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Write-Warning "This script requires Administrator privileges. Please run as Administrator."
+    exit
+}
+
 Write-Host "Searching for Logitech Brio cameras..."
-$brios = Get-PnpDevice -Class Camera -Status OK | Where-Object { $_.FriendlyName -like "*BRIO*" }
+$brios = @(Get-PnpDevice -Class Camera -Status OK -ErrorAction SilentlyContinue; Get-PnpDevice -Class Image -Status OK -ErrorAction SilentlyContinue) | Where-Object { $_.FriendlyName -like "*BRIO*" }
 
 if (-not $brios) {
     Write-Warning "No Logitech Brio cameras found."

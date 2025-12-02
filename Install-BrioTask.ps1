@@ -4,6 +4,11 @@
 
 $ErrorActionPreference = "Stop"
 
+if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Write-Warning "This script requires Administrator privileges. Please run as Administrator."
+    exit
+}
+
 $scriptName = "Set-BrioManualFocus.ps1"
 $scriptPath = Join-Path $PSScriptRoot $scriptName
 
